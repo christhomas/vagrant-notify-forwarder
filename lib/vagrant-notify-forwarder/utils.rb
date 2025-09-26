@@ -1,3 +1,4 @@
+require 'uri'
 require 'vagrant/util/downloader'
 
 module VagrantPlugins
@@ -12,6 +13,8 @@ module VagrantPlugins
       @@HARDWARE_NAMES = {
           "x86_64" => :x86_64,
           "amd64" => :x86_64,
+          "arm64" => :arm64,
+          "aarch64" => :arm64,
       }
 
       def self.parse_os_name(data)
@@ -23,20 +26,24 @@ module VagrantPlugins
       end
 
       def self.ensure_binary_downloaded(env, os, hardware)
-        download_urls = {
-            [:linux, :x86_64] => %w(https://github.com/mhallin/notify-forwarder/releases/download/release/v0.1.1/notify-forwarder_linux_x64
-                                fc00ce7e30ae87daa10fb3bc4d77e06571998b408ff79a4aef3189f5210dc914),
-            [:darwin, :x86_64] => %w(https://github.com/mhallin/notify-forwarder/releases/download/release/v0.1.1/notify-forwarder_osx_x64
-                                 317f3ffea15393668bf04b128cef1545031eaf306eeb2c4a345a95d8c6e1c941),
-            [:freebsd, :x86_64] => %w(https://github.com/mhallin/notify-forwarder/releases/download/release/v0.1.1/notify-forwarder_freebsd_x64
-                                  082ceac8f5fbda6abc5e2872a6c748241f243f2d780c96d50b3f11f8e96ca65b),
-        }
+        config = env.fetch(:machine).config.notify_forwarder
+        download_map = config.binaries
+        url, sha256sum = download_map[[os, hardware]]
 
-        url, sha256sum = download_urls[[os, hardware]]
-        path = env[:tmp_path].join File.basename(url)
+        unless url && sha256sum
+          env[:ui].error "Notify-forwarder: No binary configured for host '#{os}' '#{hardware}'"
+          return
+        end
+
+        expanded_url = expand_binary_url(url)
+        env[:ui].info "Notify-forwarder: Using binary '#{expanded_url}' (sha256 #{sha256sum[0,8]}...) for '#{os}' '#{hardware}'"
+
+        uri = safe_parse_uri(expanded_url)
+        basename = File.basename(uri ? uri.path : expanded_url)
+        path = env[:tmp_path].join basename
         should_download = true
 
-        if File.exists? path
+        if File.exist? path
           digest = Digest::SHA256.file(path).hexdigest
 
           if digest == sha256sum
@@ -45,14 +52,41 @@ module VagrantPlugins
         end
 
         if should_download
-          env[:ui].info 'Notify-forwarder: Downloading client'
-          downloader = Vagrant::Util::Downloader.new url, path
+          env[:ui].detail 'Notify-forwarder: Downloading client'
+          downloader = Vagrant::Util::Downloader.new expanded_url, path
           downloader.download!
         end
 
         File.chmod(0755, path)
 
         path
+      end
+
+      def self.expand_binary_url(url)
+        expanded = expand_environment(url.to_s)
+
+        if expanded.start_with?('file://')
+          uri = URI.parse(expanded)
+          uri.path = File.expand_path(uri.path)
+          return uri.to_s
+        end
+
+        return expanded if expanded =~ %r{^[a-zA-Z][a-zA-Z0-9+.-]*://}
+
+        File.expand_path(expanded)
+      end
+
+      def self.expand_environment(value)
+        value.gsub(/\$(\{)?([A-Za-z0-9_]+)\}?/) do
+          key = Regexp.last_match(2)
+          ENV.fetch(key, '')
+        end
+      end
+
+      def self.safe_parse_uri(url)
+        URI.parse(url)
+      rescue URI::InvalidURIError
+        nil
       end
 
       def self.host_pidfile(env)

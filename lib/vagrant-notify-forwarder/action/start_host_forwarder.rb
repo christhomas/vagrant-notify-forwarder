@@ -12,8 +12,8 @@ module VagrantPlugins
           os = Utils.parse_os_name `uname -s`
           hardware = Utils.parse_hardware_name `uname -m`
 
-          env[:ui].error 'Notify-forwarder: Unsupported host operating system' if os == :unsupported
-          env[:ui].error 'Notify-forwarder: Unsupported host hardware' if hardware == :unsupported
+          env[:ui].error "Notify-forwarder: Unsupported host operating system (detected: #{os})" if os == :unsupported
+          env[:ui].error "Notify-forwarder: Unsupported host hardware (detected: #{hardware})" if hardware == :unsupported
 
           if os != :unsupported and hardware != :unsupported
             Utils.ensure_binary_downloaded env, os, hardware

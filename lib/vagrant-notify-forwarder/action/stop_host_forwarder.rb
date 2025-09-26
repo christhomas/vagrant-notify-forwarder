@@ -15,7 +15,7 @@ module VagrantPlugins
 
           pidfile = Utils.host_pidfile env
 
-          if File.exists? pidfile
+          if File.exist? pidfile
             pidfile.open('r') do |f|
               f.readlines.each do |process|
                 pid = process.to_i

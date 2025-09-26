@@ -22,3 +22,7 @@ mkmf.log
 Vagrantfile
 /.vagrant
 Gemfile.lock
+.idea
+.history
+vendor
+.DS_Store
