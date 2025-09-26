@@ -123,3 +123,4 @@ config.notify_forwarder.enable = false
 * [CharlieC3](https://github.com/CharlieC3)
 * [hedinfaok](https://github.com/hedinfaok)
 * [seff](https://github.com/seff)
+* [christhomas](https://github.com/christhomas)
