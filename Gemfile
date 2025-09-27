@@ -6,5 +6,5 @@ group :development do
 end
 
 group :plugins do
-  gem "vagrant-notify-forwarder", path: "."
+  gem "vagrant-notify-forwarder2", path: "."
 end

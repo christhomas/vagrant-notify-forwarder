@@ -1,0 +1,1 @@
+require 'vagrant-notify-forwarder'
