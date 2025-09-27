@@ -29,6 +29,11 @@ namespace :dev do
     sh "vagrant plugin install ./#{GEM_PACKAGE}"
   end
 
+  desc 'Push the gem to RubyGems (requires configured credentials)'
+  task :publish => :build do
+    sh "gem push #{GEM_PACKAGE}"
+  end
+
   desc 'Run vagrant up using the bundled environment and local plugin path'
   task :up => :bundle do
     sh 'bundle exec vagrant up'
