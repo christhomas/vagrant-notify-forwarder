@@ -8,20 +8,20 @@ module VagrantPlugins
 
       DEFAULT_BINARIES = {
         [:linux, :x86_64] => [
-          'https://github.com/christhomas/notify-forwarder/releases/download/v1.0.0/notify-forwarder-linux-x86_64.tar.gz',
-          'cb595d193dea7608feabc9a8a87123076b96762ef1f956e06d3ae3ecef7a2424'
+          'https://github.com/christhomas/notify-forwarder/releases/download/v1.0.0/notify-forwarder-linux_x86_64',
+          'c50ba2102bec60f449dffd2039b2432b53f5f89a8ffe1f218383552b600b8004'
         ],
         [:linux, :arm64] => [
-          'https://github.com/christhomas/notify-forwarder/releases/download/v1.0.0/notify-forwarder-linux-arm64.tar.gz',
-          '7561bc849fda68e2d55e43bd49e5b36fe652ae00695e29a540d2cf621269c49c'
+          'https://github.com/christhomas/notify-forwarder/releases/download/v1.0.0/notify-forwarder-linux_arm64',
+          '86c05c55d71e73785416630625c5f38150f54a933ba9d8bf9b6504a40472dd85'
         ],
         [:darwin, :x86_64] => [
-          'https://github.com/christhomas/notify-forwarder/releases/download/v1.0.0/notify-forwarder-darwin-x86_64.tar.gz',
-          'f9ff18eee78c6f2eef4bd249335ca76ef02a54481e011ae5b79066b34f99aa70'
+          'https://github.com/christhomas/notify-forwarder/releases/download/v1.0.0/notify-forwarder-darwin_x86_64',
+          'f65ab0e87d688d38f2beb7f7030461f05a39e5937fd14cfb0a3a57d2008e751a'
         ],
         [:darwin, :arm64] => [
-          'https://github.com/christhomas/notify-forwarder/releases/download/v1.0.0/notify-forwarder-darwin-arm64.tar.gz',
-          '0b12e048b7d37fa4ac0e990df9c0aeca0171468c82b6f2181ebf531b018a01e6'
+          'https://github.com/christhomas/notify-forwarder/releases/download/v1.0.0/notify-forwarder-darwin_arm64',
+          '212ab39aa4d534fc6f93fa5b0c04eaa066c8c79394eb6b80423fcb88db5ae236'
         ],
       }.freeze
 
