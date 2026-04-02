@@ -1,0 +1,35 @@
+name: Release gem
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+
+      - name: Build gem
+        run: gem build vagrant-notify-forwarder2.gemspec
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: vagrant-notify-forwarder2-*.gem
+          body: |
+            vagrant-notify-forwarder2 ${{ github.ref_name }}
+
+            ## Install
+            ```
+            vagrant plugin install https://github.com/christhomas/vagrant-notify-forwarder/releases/download/${{ github.ref_name }}/vagrant-notify-forwarder2-$(echo ${{ github.ref_name }} | sed 's/^v//').gem
+            ```
