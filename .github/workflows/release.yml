@@ -21,7 +21,7 @@ jobs:
           ruby-version: '3.3'
 
       - name: Build gem
-        run: gem build vagrant-notify-forwarder2.gemspec
+        run: gem build vagrant-notify-forwarder-christhomas.gemspec
 
       - name: Publish to RubyGems
         uses: rubygems/release-gem@v1
@@ -29,11 +29,11 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: vagrant-notify-forwarder2-*.gem
+          files: vagrant-notify-forwarder-christhomas-*.gem
           body: |
-            vagrant-notify-forwarder2 ${{ github.ref_name }}
+            vagrant-notify-forwarder-christhomas ${{ github.ref_name }}
 
             ## Install
             ```
-            vagrant plugin install vagrant-notify-forwarder2
+            vagrant plugin install vagrant-notify-forwarder-christhomas
             ```

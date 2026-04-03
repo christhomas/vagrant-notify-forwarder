@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'vagrant-notify-forwarder/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "vagrant-notify-forwarder2"
+  spec.name          = "vagrant-notify-forwarder-christhomas"
   spec.version       = VagrantPlugins::VagrantNotifyForwarder::VERSION
   spec.authors       = ["Chris Thomas"]
   spec.email         = ["chris.alex.thomas@gmail.com"]
