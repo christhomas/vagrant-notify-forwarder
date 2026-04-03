@@ -15,6 +15,7 @@ module VagrantPlugins
           "amd64" => :x86_64,
           "arm64" => :arm64,
           "aarch64" => :arm64,
+          "armv7l" => :armv7l,
       }
 
       def self.parse_os_name(data)
