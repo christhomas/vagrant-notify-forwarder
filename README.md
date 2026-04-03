@@ -96,6 +96,7 @@ The plugin downloads binaries for supported platforms:
 | Platform | Host | Guest |
 |----------|------|-------|
 | Linux arm64 | ✓ | ✓ |
+| Linux armv7l | — | ✓ |
 | Linux x86_64 | ✓ | ✓ |
 | macOS arm64 | ✓ | — |
 | macOS x86_64 | ✓ | — |
