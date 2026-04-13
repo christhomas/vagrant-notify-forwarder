@@ -21,7 +21,7 @@ jobs:
           ruby-version: '3.3'
 
       - name: Build gem
-        run: gem build vagrant-notify-forwarder-christhomas.gemspec
+        run: gem build vagrant-notify-forwarder.gemspec
 
       - name: Configure RubyGems trusted publisher
         uses: rubygems/configure-rubygems-credentials@main
