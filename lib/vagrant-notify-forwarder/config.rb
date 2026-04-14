@@ -6,26 +6,30 @@ module VagrantPlugins
       attr_accessor :run_as_root
       attr_accessor :binaries
 
+      NOTIFY_FORWARDER_VERSION = 'v1.1.0'.freeze
+      NOTIFY_FORWARDER_BASE_URL = "https://github.com/christhomas/notify-forwarder/releases/download/#{NOTIFY_FORWARDER_VERSION}".freeze
+
+      # sha256 placeholders are replaced at gem-build time by the release workflow
       DEFAULT_BINARIES = {
         [:linux, :x86_64] => [
-          'https://github.com/christhomas/notify-forwarder/releases/download/v1.1.0/notify-forwarder-linux_x86_64',
-          'baee3d06acccd126b37c8e9abd73cfd3ab3a83886eeb7572d36d9e0e38177a24'
+          "#{NOTIFY_FORWARDER_BASE_URL}/notify-forwarder-linux_x86_64",
+          'SHA256_LINUX_X86_64'
         ],
         [:linux, :arm64] => [
-          'https://github.com/christhomas/notify-forwarder/releases/download/v1.1.0/notify-forwarder-linux_arm64',
-          'a9bace65cbefc99db78e2e6fb47e55ed9df2ddf460c173dee7400d70de25c9c0'
+          "#{NOTIFY_FORWARDER_BASE_URL}/notify-forwarder-linux_arm64",
+          'SHA256_LINUX_ARM64'
         ],
         [:linux, :armv7l] => [
-          'https://github.com/christhomas/notify-forwarder/releases/download/v1.1.0/notify-forwarder-linux_armv7l',
-          '35e05a9af6cb50417919b0cc579b0ecdc87160be811bdac651488e3bbeb19bbe'
+          "#{NOTIFY_FORWARDER_BASE_URL}/notify-forwarder-linux_armv7l",
+          'SHA256_LINUX_ARMV7L'
         ],
         [:darwin, :x86_64] => [
-          'https://github.com/christhomas/notify-forwarder/releases/download/v1.1.0/notify-forwarder-darwin_x86_64',
-          '195fde3f90425c8e73b59d832f9cf5ecf98857fa3b992ba1bd6cfbdd749ca96a'
+          "#{NOTIFY_FORWARDER_BASE_URL}/notify-forwarder-darwin_x86_64",
+          'SHA256_DARWIN_X86_64'
         ],
         [:darwin, :arm64] => [
-          'https://github.com/christhomas/notify-forwarder/releases/download/v1.1.0/notify-forwarder-darwin_arm64',
-          'ac78532672553174bfc20e3c3d5d5c9fdccfe51d5fee5521bf34a3168d4acb34'
+          "#{NOTIFY_FORWARDER_BASE_URL}/notify-forwarder-darwin_arm64",
+          'SHA256_DARWIN_ARM64'
         ],
       }.freeze
 
